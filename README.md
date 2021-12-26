@@ -13,23 +13,35 @@ Usually a software is defined in 3 tiers:
   - Delete
   - etc
 
+# Practice
+There are several free SQL Server that you can use to practice
+* SQL Lite
+  - https://www.sqlite.org
+* MYSQL
+  - https://www.mysql.com
+* Postgre SQL
+  - https://www.postgresql.org
+* SQL Server Express
+  - https://www.microsoft.com/en-us/download/details.aspx?id=101064
+
+I recommend an online SQL IDE caled SQL Fiddler. You don't need to install anything and you can use any of the listed SQL Servers
+- http://sqlfiddle.com/
+
 # Some Context
 SQL is usually related to Relational Databases. There are many different types of database and in general all database types that are not relational are called NO-SQL DATABASE. A quick search and you will find a long list of them and each one specialized in something. So there is no such thing is the best database technology as each on is best for different needs.
 It is a disater try to use a database technology to do something that it is not best design for.
 
 # Organization
-A relational database organizes the information in tables and fields.
-A table is a entity to store data.
+* A relational database organizes the information in tables and fields.
+* A table is a entity to store data.
+  - Table Examples: Customer, Product, Employee, Project, etc
 
-Table Examples: Customer, Product, Employee, Project, etc
+* A field is a unit of data that compose a Table.
+  - Fields Example: ID, first_name, last_name, email, salary, etc.
 
-A field is a unit of data that compose a Table.
+* A record is a row (instance) of data in a table:
 
-Fields Example: ID, first_name, last_name, email, salary, etc.
-
-A record is a row (instance) of data in a table:
-
-Example of a Row: 
+Example of a Row:
 | ID | first_name | last_name | email | salary |
 | --- | --- | --- | --- | --- |
 | 1 | Jose | Santos | airamez@gmail.com | 150,000.00|
