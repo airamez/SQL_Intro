@@ -14,7 +14,7 @@ Usually a software is defined in 3 tiers:
   - etc
 
 # Some Context
-SQL is usually related to Relational Databases. There are many different types of database and in general all database types that are not relational are called NON-SQL DATABASE. A quick search and you will find a long list of them and each one specialized in something. So there is no such thing is the best database technology as each on is best for different needs.
+SQL is usually related to Relational Databases. There are many different types of database and in general all database types that are not relational are called NO-SQL DATABASE. A quick search and you will find a long list of them and each one specialized in something. So there is no such thing is the best database technology as each on is best for different needs.
 It is a disater try to use a database technology to do something that it is not best design for.
 
 # Organization
