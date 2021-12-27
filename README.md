@@ -63,7 +63,7 @@ Data Modeling is the process of creating an abstract representation of the infor
 Data models are built around business needs and contains the data entities (Tables and Field) and their relationships.
 The first step to build the Data Layer is the Data Model.
 
-# CREATE TABLE command
+# CREATE TABLE
 A table is define by a list of field and before we create a table it is important to understand the field types (Data Type).
 
 ## Fields Data Types
@@ -106,7 +106,7 @@ A table can have only ONE primary key; and in the table, this primary key can co
 A foreign key is a field designated to store values from a field (usually a Primary Key) from another table.
 The foreign key is the mechanism used in relational databases to define relationship between records.
 
-# Example of Foreign Key
+### Example of Foreign Key
 Department Table
 | Departament ID | Department Name |
 | --- | --- |
@@ -129,7 +129,7 @@ The departament of a Employee is defined by the value stored at his "Departament
 * Jose Santos and Artur Rodrigues are assigned to the Information Technology Departament (Departament ID = 2)
 * Leila Rodrigues is assigned to the Human Resource Departament (Departament ID = 1)
 
-## CREATE TABLE basic sintaxe
+## CREATE TABLE sintaxe
 ```sql
 CREATE TABLE table_name (
     column1 datatype,
@@ -154,16 +154,16 @@ CREATE TABLE Employee (
 )
 ```
 
-* INSERT command
+# INSERT command
 The insert command is used to add records to a table
 
-## INSERT command sintaxe
+## Sintaxe
 ```sql
 INSERT INTO table_name (column1, column2, column3, ...)
 VALUES (value1, value2, value3, ...);
 ```
 
-## INSERT command example
+## Example
 ```sql
 INSERT INTO Departament (ID, Name, Abbreviation) VALUES (1, 'Human Resources', 'RH')
 INSERT INTO Departament (ID, Name, Abbreviation) VALUES (2, 'Information technology', 'IT')
@@ -182,5 +182,41 @@ INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (8, 'Steve Jobs', '
 INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (9, 'Lady Gaga', 'ladygaga@noemail.com', 5)
 INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (10, 'Britney Spears', 'bspears@noemail.com', 5)
 INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (11, 'Oprah Winfrey', 'oprah@noemail.com', 5)
-
 ```
+
+# UPDATE command
+The UPDATE command is used to modify existing record(s) in a table.
+
+** Sintaxe
+```sql
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+[WHERE condition]
+```
+
+> **DANGER**: If you forget to use ```WHERE``` clause all the records will be updated.
+
+## Example
+```sql
+update Departament
+set Abbreviation = 'SA'
+where ID = 3
+```
+* Update the Departament table, setting the Abbreviation to 'SA' for the record with ID equals to 3
+
+# DELETE command
+The DELETE statement is used to delete records from a table.
+
+## Sitaxe
+```sql
+DELETE FROM table_name 
+WHERE condition
+```
+
+## Example
+```sql
+DELETE FROM Departament WHERE ID = 4
+```
+
+> **DANGER**: If you forget to use ```WHERE``` clause all the records will be deleted.
+
