@@ -2,9 +2,9 @@
 SQL stands for Structed Query Language. Putting a other way, it is a language to interact with a Database Server.
 A database server is a software to store and manage data.
 Usually a software is defined in 3 tiers: 
-* Front-end: The tier that interacts directly with the user
-* Back-End: The tier that execue the main logic of the sofware
-* Database: The tier that manager the data
+* Front-end (User Interface): The tier that interacts directly with the user
+* Back-End (Middleware): The tier that execue the main logic of the sofware
+* Database (Persitence): The tier that manager the data
   - Store
   - Protect
   - Manager
@@ -12,6 +12,8 @@ Usually a software is defined in 3 tiers:
   - Create
   - Delete
   - etc
+
+> **ATTENTION**: This material focus only in the basic concepts and try to give a quick intro to SQL
 
 # Some Context
 SQL is usually related to Relational Databases. There are many different types of database and in general all database types that are not relational are called NO-SQL DATABASE. A quick search and you will find a long list of them and each one specialized in something. So there is no such thing is the best database technology as each on is best for different needs.
@@ -28,12 +30,12 @@ There are several free SQL Server that you can use to practice
 * Microsoft SQL Server Express (The free version of Microsoft SQL Server)
   - https://www.microsoft.com/en-us/download/details.aspx?id=101064
 
-> **ATTENTION**: Each SQL Server has some variation of the SQL sintaxe. This material will use SQL Sintaxe for Microsoft SQL Server |
+> **ATTENTION**: Each SQL Server has some variation of the SQL sintaxe. This material will use SQL Sintaxe for Microsoft SQL Server
 
-I recommend an online SQL IDE caled SQL Fiddler. You just need a browser and don't need to install anything. It supports the SQL Sintaxe for each on of the listed SQL Servers
+> **RECOMMENDATION**: I recommend an online SQL IDE caled SQL Fiddler. You just need a browser and don't need to install anything. It supports the SQL Sintaxe for each on of the listed SQL Servers
 - http://sqlfiddle.com/
 
-# Organization
+# Database Organization
 * A relational database organizes the information in tables and fields.
 * A table is a entity to store data.
   - Table Examples: Customer, Product, Employee, Project, etc
@@ -50,12 +52,18 @@ I recommend an online SQL IDE caled SQL Fiddler. You just need a browser and don
 
 # Operations
 SQL define a sitaxe to execute commands to:
-* Create Table
-* Select Data
-* Update Data
-* Delete Data
+* Create table
+* Insert data
+* Update data
+* Delete data
+* Select data
 
-# Create Table
+# Data Modeling
+Data Modeling is the process of creating an abstract representation of the information required for a system.
+Data models are built around business needs and contains the data entities (Tables and Field) and their relationships.
+The first step to build the Data Layer is the Data Model.
+
+# CREATE TABLE command
 A table is define by a list of field and before we create a table it is important to understand the field types (Data Type).
 
 ## Fields Data Types
@@ -82,7 +90,46 @@ A table is define by a list of field and before we create a table it is importan
 * NVARCHAR
   - Strings as UNICODE
 
-## Create table command
+## Primary Key
+A primary key is a field that uniquely identifies each record in a table.
+Primary keys must contain UNIQUE values, and cannot contain NULL values.
+A table can have only ONE primary key; and in the table, this primary key can consist of single or multiple columns (fields).
+
+* Example of Primary Keys:
+  - Email
+  - SSN
+  - EmployId
+  - StudentId
+  - DepartamentId
+
+## Foreign Key
+A foreign key is a field designated to store values from a field (usually a Primary Key) from another table.
+The foreign key is the mechanism used in relational databases to define relationship between records.
+
+# Example of Foreign Key
+Department Table
+| Departament ID | Department Name |
+| --- | --- |
+| 1 | Human Resources |
+| 2 | Information Technology |
+| 3 | Sales |
+| 4 | Finances |
+
+Employee Table
+| Employee ID | Department ID | Name | Email |
+| --- | --- | --- | --- |
+| 1 | 2 | Jose Santos | jose.santos@noemail.com |
+| 2 | 1 | Leila Rodrigues | leila.rodrigues@nomail.com |
+| 3 | 2 | Artur Rodrigues | artur.rodrigues@nomail.com |
+| ... |
+
+> **ATTENTION**: Department ID is a primary key on Departament table and a foreign key on Employee table.
+The departament of a Employee is defined by the value stored at his "Departament ID" field.
+
+* Jose Santos and Artur Rodrigues are assigned to the Information Technology Departament (Departament ID = 2)
+* Leila Rodrigues is assigned to the Human Resource Departament (Departament ID = 1)
+
+## CREATE TABLE basic sintaxe
 ```sql
 CREATE TABLE table_name (
     column1 datatype,
@@ -91,4 +138,49 @@ CREATE TABLE table_name (
    ....
 );
 ```
+## CREATE TABLE example
+```sql
+CREATE TABLE Departament (
+    ID INT PRIMARY KEY,
+    Name nvarchar(100),
+    Abbreviation nvarchar(5)
+)
 
+CREATE TABLE Employee (
+    ID INT PRIMARY KEY,
+    Name nvarchar(200),
+    Email nvarchar(200),
+    DepartamentID INT REFERENCES Departament(ID)
+)
+```
+
+* INSERT command
+The insert command is used to add records to a table
+
+## INSERT command sintaxe
+```sql
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+```
+
+## INSERT command example
+```sql
+INSERT INTO Departament (ID, Name, Abbreviation) VALUES (1, 'Human Resources', 'RH')
+INSERT INTO Departament (ID, Name, Abbreviation) VALUES (2, 'Information technology', 'IT')
+INSERT INTO Departament (ID, Name, Abbreviation) VALUES (3, 'Sales', 'SAL')
+INSERT INTO Departament (ID, Name, Abbreviation) VALUES (4, 'Finances', 'FIN')
+INSERT INTO Departament (ID, Name, Abbreviation) VALUES (5, 'Marketing', 'MARK')
+
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (1, 'Jose Santos', 'jose.santos@noemail.com', 2)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (2, 'Leila Rodrigues', 'leila.rodrigues@noemail.com', 1)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (3, 'Artur Rodrigues', 'artur.rodrigues@noemail.com', 2)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (4, 'Bob Marley', 'bob@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (5, 'Mickel Jackson', 'theking@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (6, 'Frank Sinatra', 'sinatra@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (7, 'Elon Musk', 'musk@noemail.com', 3)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (8, 'Steve Jobs', 'jobs@noemail.com', 3)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (9, 'Lady Gaga', 'ladygaga@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (10, 'Britney Spears', 'bspears@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (11, 'Oprah Winfrey', 'oprah@noemail.com', 5)
+
+```
