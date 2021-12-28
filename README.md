@@ -454,17 +454,37 @@ RIGHT JOIN Departament d on d.ID = e.DepartamentID
 * It is possible to group the information based on a field and use a COUNT command
 * The command below return a list with Departament name and the number of Employee associated to the Departament
 ```sql
-SELECT d.Name, COUNT(e.ID)
+SELECT d.Name, COUNT(e.ID) as 'Employee Count'
 FROM Departament d
 JOIN Employee e on e.DepartamentID = d.ID
 GROUP BY d.Name
 ORDER BY d.Name
 ```
 ### Result
-    |                   Name |   |
-    |------------------------|---|
-    |        Human Resources | 1 |
-    | Information technology | 2 |
-    |              Marketing | 4 |
-    |                  Sales | 2 |
+    |                   Name | Employee Count  |
+    |------------------------|-----------------|
+    |        Human Resources |               1 |
+    | Information technology |               2 |
+    |              Marketing |               4 |
+    |                  Sales |               2 |
 
+## GROUP BY and COUNT with LEFT JOIN
+* It is possible to group the information based on a field and use a COUNT command
+* The command below return a list with Departament name and the number of Employee associated to the Departament
+```sql
+SELECT d.Name, COUNT(e.ID) as 'Employee Count'
+FROM Departament d
+LEFT JOIN Employee e on e.DepartamentID = d.ID
+GROUP BY d.Name
+ORDER BY d.Name
+```
+### Result
+    |                   Name | Employee Count |
+    |------------------------|----------------|
+    |               Finances |              0 |
+    |        Human Resources |              1 |
+    | Information technology |              2 |
+    |              Marketing |              4 |
+    |       Public Relations |              0 |
+    |                  Sales |              2 |
+> **ATTENTION**: Using the left join makes sure the departaments without Employees are returned.
