@@ -2,7 +2,7 @@
 SQL stands for Structured Query Language. Put differently, it is a language to interact with a Database Server.
 A database server is software to store and manage data.
 
-Usually, a System/Application is defined in 3 tiers: 
+Usually, a System/Application is devided in 3 tiers: 
 * Front-end (User Interface): The tier that interacts directly with the user
 * Back-End (Middleware): The tier that executes the main logic of the System
 * Database (Persistence): The tier that manages the data
