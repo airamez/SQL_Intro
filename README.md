@@ -104,7 +104,7 @@ A table can have only ONE primary key; and in the table, this primary key can co
   - SSN
   - EmployId
   - StudentId
-  - DepartamentId
+  - DepartmentId
 
 ## Foreign Key
 A foreign key is a field designated to store values from a field (usually a Primary Key) from another table.
@@ -130,8 +130,8 @@ Employee Table
 > **ATTENTION**: Department ID is a primary key on the Department table and a foreign key on the Employee table.
 The department of an Employee is defined by the value stored at his "Department ID" field.
 
-* Jose Santos and Artur Rodrigues are assigned to the Information Technology Departament (Departament ID = 2)
-* Leila Rodrigues is assigned to the Human Resource Departament (Departament ID = 1)
+* Jose Santos and Artur Rodrigues are assigned to the Information Technology Department (Department ID = 2)
+* Leila Rodrigues is assigned to the Human Resource Department (Department ID = 1)
 
 ## CREATE TABLE sintaxe
 ```sql
@@ -154,7 +154,7 @@ CREATE TABLE Employee (
     ID INT PRIMARY KEY,
     Name nvarchar(200),
     Email nvarchar(200),
-    DepartamentID INT REFERENCES Departament(ID)
+    DepartmentID INT REFERENCES Department(ID)
 )
 ```
 
@@ -202,7 +202,7 @@ SET column1 = value1, column2 = value2, ...
 
 ## Example
 ```sql
-UPDATE Departament
+UPDATE Department
 SET Abbreviation = 'SA'
 WHERE ID = 3
 ```
@@ -220,7 +220,7 @@ WHERE condition
 
 ## Example
 ```sql
-DELETE FROM Departament WHERE ID = 4
+DELETE FROM Department WHERE ID = 4
 ```
 * The row with ID equals 4 will be deleted from the Department table
 
@@ -281,7 +281,7 @@ WHERE condition
 SELECT * FROM Employee
 ```
 ### Result
-    | ID |            Name |                       Email | DepartamentID |
+    | ID |            Name |                       Email | DepartmentID |
     |----|-----------------|-----------------------------|---------------|
     |  1 |     Jose Santos |     jose.santos@noemail.com |             2 |
     |  2 | Leila Rodrigues | leila.rodrigues@noemail.com |             1 |
@@ -317,10 +317,10 @@ SELECT ID, Name FROM Employee
 ## Select all fields from employee where the Department ID equals 5
 ```sql
 SELECT * FROM Employee
-WHERE DepartamentID = 5
+WHERE DepartmentID = 5
 ```
 ### Result
-    | ID |           Name  |                Email | DepartamentID |
+    | ID |           Name  |                Email | DepartmentID |
     |----|-----------------|----------------------|---------------|
     |  4 |     Bob Marley  |      bob@noemail.com |             5 |
     |  5 | Mickael Jackson |  theking@noemail.com |             5 |
@@ -351,7 +351,7 @@ FROM Employee e
 JOIN Department d on d.ID = e.DepartmentID
 ```
 ### Result
-    | ID |            Name |                       Email | DepartamentID | ID |                   Name | Abbreviation |
+    | ID |            Name |                       Email | DepartmentID  | ID |                   Name | Abbreviation |
     |----|-----------------|-----------------------------|---------------|----|------------------------|--------------|
     |  1 |     Jose Santos |     jose.santos@noemail.com |             2 |  2 | Information technology |           IT |
     |  2 | Leila Rodrigues | leila.rodrigues@noemail.com |             1 |  1 |        Human Resources |           RH |
@@ -428,12 +428,13 @@ ORDER BY d.Name, e.Name
 The default behavior of a join command (INNER JOIN) is to return only rows with data from both tables.
 If it is necessary to return data from one of the tables even if there is no foreign key mapping, it is necessary to use LEFT or RIGHT join. The table in the ```FROM``` clause is the LEFT one and the table in the ```JOIN``` clause is the RIGHT one.
 ```sql
-SELECT e.Name as 'Employee Name', d.Name as 'Departament Name'
+SELECT e.Name as 'Employee Name', 
+       d.Name as 'Department Name'
 FROM Employee e
 RIGHT JOIN Department d on d.ID = e.DepartmentID
 ```
 ### Result
-    |   Employee Name |       Departament Name |
+    |   Employee Name |       Department Name |
     |-----------------|------------------------|
     | Leila Rodrigues |        Human Resources |
     |     Jose Santos | Information technology |
@@ -487,5 +488,5 @@ ORDER BY d.Name
     |              Marketing |              4 |
     |       Public Relations |              0 |
     |                  Sales |              2 |
-> **ATTENTION**: Using the left join makes sure the departaments without Employees are returned.
+> **ATTENTION**: Using the left join makes sure the departments without Employees are returned.
 
