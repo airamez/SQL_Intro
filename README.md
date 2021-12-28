@@ -274,7 +274,7 @@ FROM table_name;
 WHERE condition
 ```
 
-> **TIP**: Using ```SELECT *``` is not recommend as we rarely need all fields. It is better to use a list with only the necessary fields.
+> **TIP**: Using ```SELECT *``` is not recommended as we rarely need all fields. It is better to use a list with only the necessary fields.
 
 ## Select all columns and all rows from an Employee table
 ```sql
@@ -327,7 +327,7 @@ WHERE DepartmentID = 5
     |  6 |  Frank Sinatra  |  sinatra@noemail.com |             5 |
     |  9 |      Lady Gaga  | ladygaga@noemail.com |             5 |
 
-## Select the Email field of all Employees of IT and RH departments
+## Select the Email field of all Employees of the IT and RH departments
 ```sql
 SELECT Email FROM Employee
 WHERE DepartmentID = 1 OR DepartmentID = 2
@@ -489,4 +489,3 @@ ORDER BY d.Name
     |       Public Relations |              0 |
     |                  Sales |              2 |
 > **ATTENTION**: Using the left join makes sure the departments without Employees are returned.
-
