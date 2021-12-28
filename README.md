@@ -367,7 +367,7 @@ JOIN Department d on d.ID = e.DepartmentID
 ```sql
 SELECT e.Name, d.Name
 FROM Employee e
-JOIN Departament d on d.ID = e.DepartamentID
+JOIN Department d on d.ID = e.DepartmentID
 ```
 ### Result
     |            Name |                   Name |
@@ -385,14 +385,14 @@ JOIN Departament d on d.ID = e.DepartamentID
 ## Select 'Employee Name' and 'Department Name' fields but renaming them to 'Employee Name' and 'Department Name' respectively
 ```sql
 SELECT e.Name as 'Employee Name', 
-       d.Name as 'Departament Name'
+       d.Name as 'Department Name'
 FROM Employee e
-JOIN Departament d on d.ID = e.DepartamentID
+JOIN Department d on d.ID = e.DepartmentID
 ```
 ### Result
-    |   Employee Name |       Departament Name |
+    |   Employee Name |       Department Name |
     |-----------------|------------------------|
-    |     Jose Santos | Information technology |
+    |     Jose Santos | Information Technology |
     | Leila Rodrigues |        Human Resources |
     | Artur Rodrigues | Information technology |
     |      Bob Marley |              Marketing |
@@ -404,11 +404,10 @@ JOIN Departament d on d.ID = e.DepartamentID
 
 ## Sorting Data, Select 'Employee Name' and 'Department Name' fields from Employee and Department tables
 ```sql
-SELECT d.Name as 'Departament Name',
+SELECT d.Name as 'Department Name',
        e.Name as 'Employee Name'
-       
 FROM Employee e
-JOIN Departament d on d.ID = e.DepartamentID
+JOIN Department d on d.ID = e.DepartmentID
 ORDER BY d.Name, e.Name
 ```
 * Sorting by Department and Employee Names
@@ -431,7 +430,7 @@ If it is necessary to return data from one of the tables even if there is no for
 ```sql
 SELECT e.Name as 'Employee Name', d.Name as 'Departament Name'
 FROM Employee e
-RIGHT JOIN Departament d on d.ID = e.DepartamentID
+RIGHT JOIN Department d on d.ID = e.DepartmentID
 ```
 ### Result
     |   Employee Name |       Departament Name |
@@ -457,7 +456,7 @@ RIGHT JOIN Departament d on d.ID = e.DepartamentID
 ```sql
 SELECT d.Name, COUNT(e.ID) as 'Employee Count'
 FROM Department d
-JOIN Employee e on e.DepartamentID = d.ID
+JOIN Employee e on e.DepartmentID = d.ID
 GROUP BY d.Name
 ORDER BY d.Name
 ```
@@ -475,7 +474,7 @@ ORDER BY d.Name
 ```sql
 SELECT d.Name, COUNT(e.ID) as 'Employee Count'
 FROM Department d
-LEFT JOIN Employee e on e.DepartamentID = d.ID
+LEFT JOIN Employee e on e.DepartmentID = d.ID
 GROUP BY d.Name
 ORDER BY d.Name
 ```
