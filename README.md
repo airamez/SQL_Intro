@@ -1,10 +1,11 @@
 # Introduction to SQL
-SQL stands for Structed Query Language. Putting in a different way, it is a language to interact with a Database Server.
-A database server is a software to store and manage data.
-Usually a System/Application is defined in 3 tiers: 
+SQL stands for Structured Query Language. Put differently, it is a language to interact with a Database Server.
+A database server is software to store and manage data.
+
+Usually, a System/Application is defined in 3 tiers: 
 * Front-end (User Interface): The tier that interacts directly with the user
-* Back-End (Middleware): The tier that execue the main logic of the sofware
-* Database (Persitence): The tier that manager the data
+* Back-End (Middleware): The tier that executes the main logic of the System
+* Database (Persistence): The tier that manages the data
   - Store
   - Protect
   - Manager
@@ -14,8 +15,8 @@ Usually a System/Application is defined in 3 tiers:
   - etc
 
 # Some Context
-SQL is usually related to Relational Databases. There are many different types of database and in general all database types that are not relational are called NO-SQL DATABASE. A quick search and you will find a long list of them and each one specialized in something. So there is no such thing is the best database technology as each on is best for different needs.
-It is a disater try to use a database technology to do something that it is not best design for.
+SQL is usually related to Relational Databases. There are many different types of databases and in general, all database types that are not relational are called NO-SQL DATABASE. A quick search and you will find a long list of them and each one specialized in something. So there is no such thing as the best database technology as each one is best for different needs.
+It is a disaster to try to use database technology to do something that is not best designed for.
 
 # Practices
 There are several free SQL Server and IDEs that you can use to practice
@@ -29,16 +30,16 @@ There are several free SQL Server and IDEs that you can use to practice
   - https://www.microsoft.com/en-us/download/details.aspx?id=101064
 
 > **ATTENTION**: 
-  * Each SQL Server has some variation of the SQL sintaxe. 
-  * This material will use SQL Sintaxe for Microsoft SQL Server. 
-  * This material focus only in the basic concepts and try to give a quick intro to SQL.
+  * Each SQL Server has some variation of the SQL syntax. 
+  * This material will use SQL Syntax for Microsoft SQL Server. 
+  * This material focuses only on the basic concepts and tries to give a quick intro to SQL.
 
-> **RECOMMENDATION**: I recommend an online SQL IDE caled SQL Fiddler. You just need a browser and don't need to install anything. It supports the SQL Sintaxe for each one of the listed SQL Servers
+> **RECOMMENDATION**: I recommend an online SQL IDE called SQL Fiddler. You just need a browser and don't need to install anything. It supports the SQL Syntax for each one of the listed SQL Servers
 - http://sqlfiddle.com/
 
 # Database Organization
 * A relational database organizes the information in tables and fields.
-* A table is a entity to store data.
+* A table is an entity to store data.
   - Table Examples: Customer, Product, Employee, Project, etc
 
 * A field is a unit of data that compose a Table.
@@ -52,7 +53,7 @@ There are several free SQL Server and IDEs that you can use to practice
 | 1 | Jose | Santos | airamez@gmail.com | 150,000.00|
 
 # Operations
-SQL define a sitaxe to execute commands to:
+SQL defines a sitaxe to execute commands to:
 * Create table
 * Insert data
 * Update data
@@ -61,13 +62,13 @@ SQL define a sitaxe to execute commands to:
 
 # Data Modeling
 Data Modeling is the process of creating an abstract representation of the information required for a system.
-Data models are built around business needs and contains the data entities (Tables and Field) and their relationships.
+Data models are built around business needs and contain the data entities (Tables and Field) and their relationships.
 The first step to build the Data Layer is the Data Model.
 
-> **WARNING**: SQL Server commands are not case sensitive. This material will use Upper case just to help on visualization
+> **WARNING**: SQL Server commands are not case sensitive. This material will use Upper case just to help with visualization
 
 # CREATE TABLE
-A table is define by a list of field and before we create a table it is important to understand the field types (Data Type).
+A table is defined by a list of fields and before we create a table it is important to understand the field types (DataType).
 
 ## Fields Data Types
 > **ATTENTION**: This is not a full list of data types but the most common ones |
@@ -107,11 +108,11 @@ A table can have only ONE primary key; and in the table, this primary key can co
 
 ## Foreign Key
 A foreign key is a field designated to store values from a field (usually a Primary Key) from another table.
-The foreign key is the mechanism used in relational databases to define relationship between records.
+The foreign key is the mechanism used in relational databases to define relationships between records.
 
 ### Example of Foreign Key
 Department Table
-| Departament ID | Department Name |
+| Department ID | Department Name |
 | --- | --- |
 | 1 | Human Resources |
 | 2 | Information Technology |
@@ -126,8 +127,8 @@ Employee Table
 | 3 | 2 | Artur Rodrigues | artur.rodrigues@nomail.com |
 | ... |
 
-> **ATTENTION**: Department ID is a primary key on Departament table and a foreign key on Employee table.
-The departament of a Employee is defined by the value stored at his "Departament ID" field.
+> **ATTENTION**: Department ID is a primary key on the Department table and a foreign key on the Employee table.
+The department of an Employee is defined by the value stored at his "Department ID" field.
 
 * Jose Santos and Artur Rodrigues are assigned to the Information Technology Departament (Departament ID = 2)
 * Leila Rodrigues is assigned to the Human Resource Departament (Departament ID = 1)
@@ -143,7 +144,7 @@ CREATE TABLE table_name (
 ```
 ## CREATE TABLE example
 ```sql
-CREATE TABLE Departament (
+CREATE TABLE Department (
     ID INT PRIMARY KEY,
     Name nvarchar(100),
     Abbreviation nvarchar(5)
@@ -168,23 +169,23 @@ VALUES (value1, value2, value3, ...);
 
 ## Example
 ```sql
-INSERT INTO Departament (ID, Name, Abbreviation) VALUES (1, 'Human Resources', 'RH')
-INSERT INTO Departament (ID, Name, Abbreviation) VALUES (2, 'Information technology', 'IT')
-INSERT INTO Departament (ID, Name, Abbreviation) VALUES (3, 'Sales', 'SAL')
-INSERT INTO Departament (ID, Name, Abbreviation) VALUES (4, 'Finances', 'FIN')
-INSERT INTO Departament (ID, Name, Abbreviation) VALUES (5, 'Marketing', 'MARK')
+INSERT INTO Department (ID, Name, Abbreviation) VALUES (1, 'Human Resources', 'RH')
+INSERT INTO Department (ID, Name, Abbreviation) VALUES (2, 'Information technology, 'IT')
+INSERT INTO Department (ID, Name, Abbreviation) VALUES (3, 'Sales', 'SAL')
+INSERT INTO Department (ID, Name, Abbreviation) VALUES (4, 'Finances', 'FIN')
+INSERT INTO Department (ID, Name, Abbreviation) VALUES (5, 'Marketing', 'MARK')
 
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (1, 'Jose Santos', 'jose.santos@noemail.com', 2)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (2, 'Leila Rodrigues', 'leila.rodrigues@noemail.com', 1)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (3, 'Artur Rodrigues', 'artur.rodrigues@noemail.com', 2)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (4, 'Bob Marley', 'bob@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (5, 'Mickael Jackson', 'theking@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (6, 'Frank Sinatra', 'sinatra@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (7, 'Elon Musk', 'musk@noemail.com', 3)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (8, 'Steve Jobs', 'jobs@noemail.com', 3)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (9, 'Lady Gaga', 'ladygaga@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (10, 'Britney Spears', 'bspears@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (11, 'Oprah Winfrey', 'oprah@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (1, 'Jose Santos', 'jose.santos@noemail.com', 2)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (2, 'Leila Rodrigues', 'leila.rodrigues@noemail.com', 1)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (3, 'Artur Rodrigues', 'artur.rodrigues@noemail.com', 2)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (4, 'Bob Marley', 'bob@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (5, 'Mickael Jackson', 'theking@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (6, 'Frank Sinatra', 'sinatra@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (7, 'Elon Musk', 'musk@noemail.com', 3)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (8, 'Steve Jobs', 'jobs@noemail.com', 3)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (9, 'Lady Gaga', 'ladygaga@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (10, 'Britney Spears', 'bspears@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (11, 'Oprah Winfrey', 'oprah@noemail.com', 5)
 ```
 
 # UPDATE command
@@ -205,7 +206,7 @@ UPDATE Departament
 SET Abbreviation = 'SA'
 WHERE ID = 3
 ```
-* Update the Departament table, setting the Abbreviation to 'SA' for the record with ID equals to 3
+* Update the Department table, setting the Abbreviation to 'SA' for the record with ID equals 3
 
 # DELETE command
 The DELETE statement is used to delete records from a table.
@@ -221,7 +222,7 @@ WHERE condition
 ```sql
 DELETE FROM Departament WHERE ID = 4
 ```
-* The row with ID equals to 4 will be deleted from Departament table
+* The row with ID equals 4 will be deleted from the Department table
 
 ## Preparation for the SELECT command examples
 * These are the SQL commands to prepare the database for the select examples
@@ -229,7 +230,7 @@ DELETE FROM Departament WHERE ID = 4
 * If you are using SQL Fiddler, execute these commands on the left side (Build Schema Section) and execute the examples on the right side.
 
 ```sql
-CREATE TABLE Departament (
+CREATE TABLE Department (
     ID INT PRIMARY KEY,
     Name nvarchar(100),
     Abbreviation nvarchar(5)
@@ -241,24 +242,24 @@ CREATE TABLE Employee (
     Email nvarchar(200),
     DepartamentID INT REFERENCES Departament(ID)
 )
-INSERT INTO Departament (ID, Name, Abbreviation) VALUES (1, 'Human Resources', 'RH')
-INSERT INTO Departament (ID, Name, Abbreviation) VALUES (2, 'Information technology', 'IT')
-INSERT INTO Departament (ID, Name, Abbreviation) VALUES (3, 'Sales', 'SAL')
-INSERT INTO Departament (ID, Name, Abbreviation) VALUES (4, 'Finances', 'FIN')
-INSERT INTO Departament (ID, Name, Abbreviation) VALUES (5, 'Marketing', 'MARK')
+INSERT INTO Department (ID, Name, Abbreviation) VALUES (1, 'Human Resources', 'RH')
+INSERT INTO Department (ID, Name, Abbreviation) VALUES (2, 'Information Technology, 'IT')
+INSERT INTO Department (ID, Name, Abbreviation) VALUES (3, 'Sales', 'SAL')
+INSERT INTO Department (ID, Name, Abbreviation) VALUES (4, 'Finances', 'FIN')
+INSERT INTO Department (ID, Name, Abbreviation) VALUES (5, 'Marketing', 'MARK')
 INSERT INTO Departament (ID, Name, Abbreviation) VALUES (6, 'Public Relations', 'PR')
 
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (1, 'Jose Santos', 'jose.santos@noemail.com', 2)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (2, 'Leila Rodrigues', 'leila.rodrigues@noemail.com', 1)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (3, 'Artur Rodrigues', 'artur.rodrigues@noemail.com', 2)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (4, 'Bob Marley', 'bob@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (5, 'Mickael Jackson', 'theking@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (6, 'Frank Sinatra', 'sinatra@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (7, 'Elon Musk', 'musk@noemail.com', 3)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (8, 'Steve Jobs', 'jobs@noemail.com', 3)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (9, 'Lady Gaga', 'ladygaga@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (10, 'Britney Spears', 'bspears@noemail.com', NULL)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (11, 'Oprah Winfrey', 'oprah@noemail.com', NULL)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (1, 'Jose Santos', 'jose.santos@noemail.com', 2)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (2, 'Leila Rodrigues', 'leila.rodrigues@noemail.com', 1)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (3, 'Artur Rodrigues', 'artur.rodrigues@noemail.com', 2)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (4, 'Bob Marley', 'bob@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (5, 'Mickael Jackson', 'theking@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (6, 'Frank Sinatra', 'sinatra@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (7, 'Elon Musk', 'musk@noemail.com', 3)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (8, 'Steve Jobs', 'jobs@noemail.com', 3)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (9, 'Lady Gaga', 'ladygaga@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (10, 'Britney Spears', 'bspears@noemail.com', NULL)
+INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (11, 'Oprah Winfrey', 'oprah@noemail.com', NULL)
 ```
 
 # SELECT command
@@ -273,9 +274,9 @@ FROM table_name;
 WHERE condition
 ```
 
-* 'SELECT *' returns all field from the table (It is not recommend)
+* 'SELECT *' returns all field from the table (It is not recommended)
 
-## Select all columns and all rows from a Employee table
+## Select all columns and all rows from an Employee table
 ```sql
 SELECT * FROM Employee
 ```
@@ -294,7 +295,7 @@ SELECT * FROM Employee
     | 10 |  Britney Spears |         bspears@noemail.com |        (null) |
     | 11 |   Oprah Winfrey |           oprah@noemail.com |        (null) |
 
-## Select only ID and Name fields from Employee table
+## Select only ID and Name fields from the Employee table
 ```sql
 SELECT ID, Name FROM Employee
 ```
@@ -313,7 +314,7 @@ SELECT ID, Name FROM Employee
     | 10 |  Britney Spears |
     | 11 |   Oprah Winfrey |
 
-## Select all fields from employee where the Departament ID equals to 5
+## Select all fields from employee where the Department ID equals 5
 ```sql
 SELECT * FROM Employee
 WHERE DepartamentID = 5
@@ -326,7 +327,7 @@ WHERE DepartamentID = 5
     |  6 |  Frank Sinatra  |  sinatra@noemail.com |             5 |
     |  9 |      Lady Gaga  | ladygaga@noemail.com |             5 |
 
-## Select the Email field of all Employees of IT and RH departaments
+## Select the Email field of all Employees of IT and RH departments
 ```sql
 SELECT Email FROM Employee
 WHERE DepartamentID = 1 OR DepartamentID = 2
@@ -338,12 +339,12 @@ WHERE DepartamentID = 1 OR DepartamentID = 2
     | leila.rodrigues@noemail.com |
     | artur.rodrigues@noemail.com |
 
-## Select all columns from Employee and Departament tables
-* To select fields from two or more tables it is necessary make a relational operation called JOIN
+## Select all columns from Employee and Department tables
+* To select fields from two or more tables it is necessary to make a relational operation called JOIN
 * A join operation uses foreign keys to relate the records
-* As the Employee table has a foreign key (Departament ID) from Departament (ID), the select command can join the related records from both tables
-* The rows on the result dataset will be mapped (linked) based on the combination of Departament ID on Employee table and ID on Departament table.
-* In a join operation is necessary to use alias, identifiers right after the table name, to distinguise fields from different tables.
+* As the Employee table has a foreign key (Department ID) from Department (ID), the select command can join the related records from both tables
+* The rows on the result dataset will be mapped (linked) based on the combination of Department ID on Employee table and ID on Department table.
+* In a join operation is necessary to use alias, identifiers right after the table name, to distinguish fields from different tables.
 ```sql
 SELECT * 
 FROM Employee e
@@ -362,7 +363,7 @@ JOIN Departament d on d.ID = e.DepartamentID
     |  8 |      Steve Jobs |            jobs@noemail.com |             3 |  3 |                  Sales |          SAL |
     |  9 |       Lady Gaga |        ladygaga@noemail.com |             5 |  5 |              Marketing |         MARK |
 
-## Select 'Employee Name' and 'Departament Name' fields from Employee and Departament tables
+## Select 'Employee Name' and 'Department Name' fields from Employee and Department tables
 ```sql
 SELECT e.Name, d.Name
 FROM Employee e
@@ -381,7 +382,7 @@ JOIN Departament d on d.ID = e.DepartamentID
     |      Steve Jobs |                  Sales |
     |       Lady Gaga |              Marketing |
 
-## Select 'Employee Name' and 'Departament Name' fields but renaming them to 'Employee Name' and 'Departament Name' respectively
+## Select 'Employee Name' and 'Department Name' fields but renaming them to 'Employee Name' and 'Department Name' respectively
 ```sql
 SELECT e.Name as 'Employee Name', 
        d.Name as 'Departament Name'
@@ -401,8 +402,7 @@ JOIN Departament d on d.ID = e.DepartamentID
     |      Steve Jobs |                  Sales |
     |       Lady Gaga |              Marketing |
 
-
-## Sorting Data, Select 'Employee Name' and 'Departament Name' fields from Employee and Departament tables
+## Sorting Data, Select 'Employee Name' and 'Department Name' fields from Employee and Department tables
 ```sql
 SELECT d.Name as 'Departament Name',
        e.Name as 'Employee Name'
@@ -411,9 +411,9 @@ FROM Employee e
 JOIN Departament d on d.ID = e.DepartamentID
 ORDER BY d.Name, e.Name
 ```
-* Sorting by Departament and Employee Names
+* Sorting by Department and Employee Names
 ### Result
-    |       Departament Name |   Employee Name |
+    |       Department Name |   Employee Name |
     |------------------------|-----------------|
     |        Human Resources | Leila Rodrigues |
     | Information technology | Artur Rodrigues |
@@ -426,7 +426,7 @@ ORDER BY d.Name, e.Name
     |                  Sales |      Steve Jobs |
 
 ## LEFT or RIGHT JOIN
-The default behaviour of a join command (INNER JOIN) is to return only rows with data from both tables.
+The default behavior of a join command (INNER JOIN) is to return only rows with data from both tables.
 If it is necessary to return data from one of the tables even if there is no foreign key mapping, it is necessary to use LEFT or RIGHT join. The table in the ```FROM``` clause is the LEFT one and the table in the ```JOIN``` clause is the RIGHT one.
 ```sql
 SELECT e.Name as 'Employee Name', d.Name as 'Departament Name'
@@ -447,16 +447,16 @@ RIGHT JOIN Departament d on d.ID = e.DepartamentID
     |   Frank Sinatra |              Marketing |
     |       Lady Gaga |              Marketing |
     |          (null) |       Public Relations |
-* ```Employee``` is LEFT and ```Departament``` is RIGHT
-* Compare this result to the one from the previous example and observe that this one has two extras rows with no Employee Name for Finance Departament and Public Relations.
-* As there is no Employee with an Departament ID equals to 4 or 5 so it is necessary a RIGHT JOIN to retrieve a row for each one of those departaments.
+* ```Employee``` is LEFT and ```Department`` is RIGHT
+* Compare this result to the one from the previous example and observe that this one has two extra rows with no Employee Name for Finance Department and Public Relations.
+* As there is no Employee with a Department ID equal to 4 or 5, it is necessary a RIGHT JOIN to retrieve a row for each one of those departments.
    
 ## GROUP BY and COUNT
 * It is possible to group the information based on a field and use a COUNT command
-* The command below return a list with Departament name and the number of Employee associated to the Departament
+* The command below return a list with the Department name and the number of Employees associated with the Department
 ```sql
 SELECT d.Name, COUNT(e.ID) as 'Employee Count'
-FROM Departament d
+FROM Department d
 JOIN Employee e on e.DepartamentID = d.ID
 GROUP BY d.Name
 ORDER BY d.Name
@@ -471,10 +471,10 @@ ORDER BY d.Name
 
 ## GROUP BY and COUNT with LEFT JOIN
 * It is possible to group the information based on a field and use a COUNT command
-* The command below return a list with Departament name and the number of Employee associated to the Departament
+* The command below return a list with the Department name and the number of Employees associated with the Department
 ```sql
 SELECT d.Name, COUNT(e.ID) as 'Employee Count'
-FROM Departament d
+FROM Department d
 LEFT JOIN Employee e on e.DepartamentID = d.ID
 GROUP BY d.Name
 ORDER BY d.Name
@@ -489,3 +489,4 @@ ORDER BY d.Name
     |       Public Relations |              0 |
     |                  Sales |              2 |
 > **ATTENTION**: Using the left join makes sure the departaments without Employees are returned.
+
