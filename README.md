@@ -178,7 +178,7 @@ VALUES (value1, value2, value3, ...);
 ## Example
 ```sql
 INSERT INTO Department (ID, Name, Abbreviation) VALUES (1, 'Human Resources', 'RH')
-INSERT INTO Department (ID, Name, Abbreviation) VALUES (2, 'Information technology, 'IT')
+INSERT INTO Department (ID, Name, Abbreviation) VALUES (2, 'Information Technology', 'IT')
 INSERT INTO Department (ID, Name, Abbreviation) VALUES (3, 'Sales', 'SAL')
 INSERT INTO Department (ID, Name, Abbreviation) VALUES (4, 'Finances', 'FIN')
 INSERT INTO Department (ID, Name, Abbreviation) VALUES (5, 'Marketing', 'MARK')
