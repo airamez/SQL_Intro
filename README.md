@@ -13,14 +13,12 @@ Usually a software is defined in 3 tiers:
   - Delete
   - etc
 
-> **ATTENTION**: This material focus only in the basic concepts and try to give a quick intro to SQL
-
 # Some Context
 SQL is usually related to Relational Databases. There are many different types of database and in general all database types that are not relational are called NO-SQL DATABASE. A quick search and you will find a long list of them and each one specialized in something. So there is no such thing is the best database technology as each on is best for different needs.
 It is a disater try to use a database technology to do something that it is not best design for.
 
-# Practice
-There are several free SQL Server that you can use to practice
+# Practices
+There are several free SQL Server and IDEs that you can use to practice
 * SQL Lite
   - https://www.sqlite.org
 * MYSQL
@@ -30,9 +28,12 @@ There are several free SQL Server that you can use to practice
 * Microsoft SQL Server Express (The free version of Microsoft SQL Server)
   - https://www.microsoft.com/en-us/download/details.aspx?id=101064
 
-> **ATTENTION**: Each SQL Server has some variation of the SQL sintaxe. This material will use SQL Sintaxe for Microsoft SQL Server
+> **ATTENTION**: 
+  * Each SQL Server has some variation of the SQL sintaxe. 
+  * This material will use SQL Sintaxe for Microsoft SQL Server. 
+  * This material focus only in the basic concepts and try to give a quick intro to SQL.
 
-> **RECOMMENDATION**: I recommend an online SQL IDE caled SQL Fiddler. You just need a browser and don't need to install anything. It supports the SQL Sintaxe for each on of the listed SQL Servers
+> **RECOMMENDATION**: I recommend an online SQL IDE caled SQL Fiddler. You just need a browser and don't need to install anything. It supports the SQL Sintaxe for each one of the listed SQL Servers
 - http://sqlfiddle.com/
 
 # Database Organization
