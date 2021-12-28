@@ -63,6 +63,8 @@ Data Modeling is the process of creating an abstract representation of the infor
 Data models are built around business needs and contains the data entities (Tables and Field) and their relationships.
 The first step to build the Data Layer is the Data Model.
 
+> **WARNING**: SQL Server commands are not case sensitive. This material will use Upper case just to help on visualization
+
 # CREATE TABLE
 A table is define by a list of field and before we create a table it is important to understand the field types (Data Type).
 
@@ -175,7 +177,7 @@ INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (1, 'Jose Santos', 
 INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (2, 'Leila Rodrigues', 'leila.rodrigues@noemail.com', 1)
 INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (3, 'Artur Rodrigues', 'artur.rodrigues@noemail.com', 2)
 INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (4, 'Bob Marley', 'bob@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (5, 'Mickel Jackson', 'theking@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (5, 'Mickael Jackson', 'theking@noemail.com', 5)
 INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (6, 'Frank Sinatra', 'sinatra@noemail.com', 5)
 INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (7, 'Elon Musk', 'musk@noemail.com', 3)
 INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (8, 'Steve Jobs', 'jobs@noemail.com', 3)
@@ -194,13 +196,13 @@ SET column1 = value1, column2 = value2, ...
 [WHERE condition]
 ```
 
-> **DANGER**: If you forget to use ```WHERE``` clause all the records will be updated.
+> **DANGER**: If you forget to use the ```WHERE``` clause all the records will be updated.
 
 ## Example
 ```sql
-update Departament
-set Abbreviation = 'SA'
-where ID = 3
+UPDATE Departament
+SET Abbreviation = 'SA'
+WHERE ID = 3
 ```
 * Update the Departament table, setting the Abbreviation to 'SA' for the record with ID equals to 3
 
@@ -212,11 +214,256 @@ The DELETE statement is used to delete records from a table.
 DELETE FROM table_name 
 WHERE condition
 ```
+> **DANGER**: If you forget to use the ```WHERE``` clause all the records will be deleted.
 
 ## Example
 ```sql
 DELETE FROM Departament WHERE ID = 4
 ```
+* The row with ID equals to 4 will be deleted from Departament table
 
-> **DANGER**: If you forget to use ```WHERE``` clause all the records will be deleted.
+## Preparation for the SELECT command examples
+* These are the SQL commands to prepare the database for the select examples
+* Execute the commands below into your sandbox database to create the tables and insert records necessary for the following examples
+
+```sql
+CREATE TABLE Departament (
+    ID INT PRIMARY KEY,
+    Name nvarchar(100),
+    Abbreviation nvarchar(5)
+)
+
+CREATE TABLE Employee (
+    ID INT PRIMARY KEY,
+    Name nvarchar(200),
+    Email nvarchar(200),
+    DepartamentID INT REFERENCES Departament(ID)
+)
+INSERT INTO Departament (ID, Name, Abbreviation) VALUES (1, 'Human Resources', 'RH')
+INSERT INTO Departament (ID, Name, Abbreviation) VALUES (2, 'Information technology', 'IT')
+INSERT INTO Departament (ID, Name, Abbreviation) VALUES (3, 'Sales', 'SAL')
+INSERT INTO Departament (ID, Name, Abbreviation) VALUES (4, 'Finances', 'FIN')
+INSERT INTO Departament (ID, Name, Abbreviation) VALUES (5, 'Marketing', 'MARK')
+INSERT INTO Departament (ID, Name, Abbreviation) VALUES (6, 'Public Relations', 'PR')
+
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (1, 'Jose Santos', 'jose.santos@noemail.com', 2)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (2, 'Leila Rodrigues', 'leila.rodrigues@noemail.com', 1)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (3, 'Artur Rodrigues', 'artur.rodrigues@noemail.com', 2)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (4, 'Bob Marley', 'bob@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (5, 'Mickael Jackson', 'theking@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (6, 'Frank Sinatra', 'sinatra@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (7, 'Elon Musk', 'musk@noemail.com', 3)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (8, 'Steve Jobs', 'jobs@noemail.com', 3)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (9, 'Lady Gaga', 'ladygaga@noemail.com', 5)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (10, 'Britney Spears', 'bspears@noemail.com', NULL)
+INSERT INTO Employee (ID, Name, Email, DepartamentID) VALUES (11, 'Oprah Winfrey', 'oprah@noemail.com', NULL)
+```
+
+# SELECT command
+The SELECT command is used to select/retrieve data from a database.
+
+## Sintaxe
+```sql
+SELECT * FROM table_name;
+
+SELECT column1, column2, ...
+FROM table_name;
+WHERE condition
+```
+
+* 'SELECT *' returns all field from the table (It is not recommend)
+
+## Select all columns and all rows from a Employee table
+```sql
+SELECT * FROM Employee
+```
+### Result
+    | ID |            Name |                       Email | DepartamentID |
+    |----|-----------------|-----------------------------|---------------|
+    |  1 |     Jose Santos |     jose.santos@noemail.com |             2 |
+    |  2 | Leila Rodrigues | leila.rodrigues@noemail.com |             1 |
+    |  3 | Artur Rodrigues | artur.rodrigues@noemail.com |             2 |
+    |  4 |      Bob Marley |             bob@noemail.com |             5 |
+    |  5 | Mickael Jackson |         theking@noemail.com |             5 |
+    |  6 |   Frank Sinatra |         sinatra@noemail.com |             5 |
+    |  7 |       Elon Musk |            musk@noemail.com |             3 |
+    |  8 |      Steve Jobs |            jobs@noemail.com |             3 |
+    |  9 |       Lady Gaga |        ladygaga@noemail.com |             5 |
+    | 10 |  Britney Spears |         bspears@noemail.com |        (null) |
+    | 11 |   Oprah Winfrey |           oprah@noemail.com |        (null) |
+
+## Select only ID and Name fields from Employee table
+```sql
+SELECT ID, Name FROM Employee
+```
+### Result
+    | ID |            Name |
+    |----|-----------------|
+    |  1 |     Jose Santos |
+    |  2 | Leila Rodrigues |
+    |  3 | Artur Rodrigues |
+    |  4 |      Bob Marley |
+    |  5 | Mickael Jackson |
+    |  6 |   Frank Sinatra |
+    |  7 |       Elon Musk |
+    |  8 |      Steve Jobs |
+    |  9 |       Lady Gaga |
+    | 10 |  Britney Spears |
+    | 11 |   Oprah Winfrey |
+
+## Select all fields from employee where the Departament ID equals to 5
+```sql
+SELECT * FROM Employee
+WHERE DepartamentID = 5
+```
+### Result
+    | ID |           Name  |                Email | DepartamentID |
+    |----|-----------------|----------------------|---------------|
+    |  4 |     Bob Marley  |      bob@noemail.com |             5 |
+    |  5 | Mickael Jackson |  theking@noemail.com |             5 |
+    |  6 |  Frank Sinatra  |  sinatra@noemail.com |             5 |
+    |  9 |      Lady Gaga  | ladygaga@noemail.com |             5 |
+
+## Select the Email field of all Employees of IT and RH departaments
+```sql
+SELECT Email FROM Employee
+WHERE DepartamentID = 1 OR DepartamentID = 2
+```
+### Result
+    |                       Email |
+    |-----------------------------|
+    |     jose.santos@noemail.com |
+    | leila.rodrigues@noemail.com |
+    | artur.rodrigues@noemail.com |
+
+## Select all columns from Employee and Departament tables
+* To select fields from two or more tables it is necessary make a relational operation called JOIN
+* A join operation uses foreign keys to relate the records
+* As the Employee table has a foreign key (Departament ID) from Departament (ID), the select command can join the related records from both tables
+* The rows on the result dataset will be mapped (linked) based on the combination of Departament ID on Employee table and ID on Departament table.
+* In a join operation is necessary to use alias, identifiers right after the table name, to distinguise fields from different tables.
+```sql
+SELECT * 
+FROM Employee e
+JOIN Departament d on d.ID = e.DepartamentID
+```
+### Result
+    | ID |            Name |                       Email | DepartamentID | ID |                   Name | Abbreviation |
+    |----|-----------------|-----------------------------|---------------|----|------------------------|--------------|
+    |  1 |     Jose Santos |     jose.santos@noemail.com |             2 |  2 | Information technology |           IT |
+    |  2 | Leila Rodrigues | leila.rodrigues@noemail.com |             1 |  1 |        Human Resources |           RH |
+    |  3 | Artur Rodrigues | artur.rodrigues@noemail.com |             2 |  2 | Information technology |           IT |
+    |  4 |      Bob Marley |             bob@noemail.com |             5 |  5 |              Marketing |         MARK |
+    |  5 | Mickael Jackson |         theking@noemail.com |             5 |  5 |              Marketing |         MARK |
+    |  6 |   Frank Sinatra |         sinatra@noemail.com |             5 |  5 |              Marketing |         MARK |
+    |  7 |       Elon Musk |            musk@noemail.com |             3 |  3 |                  Sales |          SAL |
+    |  8 |      Steve Jobs |            jobs@noemail.com |             3 |  3 |                  Sales |          SAL |
+    |  9 |       Lady Gaga |        ladygaga@noemail.com |             5 |  5 |              Marketing |         MARK |
+
+## Select 'Employee Name' and 'Departament Name' fields from Employee and Departament tables
+```sql
+SELECT e.Name, d.Name
+FROM Employee e
+JOIN Departament d on d.ID = e.DepartamentID
+```
+### Result
+    |            Name |                   Name |
+    |-----------------|------------------------|
+    |     Jose Santos | Information technology |
+    | Leila Rodrigues |        Human Resources |
+    | Artur Rodrigues | Information technology |
+    |      Bob Marley |              Marketing |
+    | Mickael Jackson |              Marketing |
+    |   Frank Sinatra |              Marketing |
+    |       Elon Musk |                  Sales |
+    |      Steve Jobs |                  Sales |
+    |       Lady Gaga |              Marketing |
+
+## Select 'Employee Name' and 'Departament Name' fields but renaming them to 'Employee Name' and 'Departament Name' respectively
+```sql
+SELECT e.Name as 'Employee Name', 
+       d.Name as 'Departament Name'
+FROM Employee e
+JOIN Departament d on d.ID = e.DepartamentID
+```
+### Result
+    |   Employee Name |       Departament Name |
+    |-----------------|------------------------|
+    |     Jose Santos | Information technology |
+    | Leila Rodrigues |        Human Resources |
+    | Artur Rodrigues | Information technology |
+    |      Bob Marley |              Marketing |
+    | Mickael Jackson |              Marketing |
+    |   Frank Sinatra |              Marketing |
+    |       Elon Musk |                  Sales |
+    |      Steve Jobs |                  Sales |
+    |       Lady Gaga |              Marketing |
+
+
+## Sorting Data, Select 'Employee Name' and 'Departament Name' fields from Employee and Departament tables
+```sql
+SELECT d.Name as 'Departament Name',
+       e.Name as 'Employee Name'
+       
+FROM Employee e
+JOIN Departament d on d.ID = e.DepartamentID
+ORDER BY d.Name, e.Name
+```
+* Sorting by Departament and Employee Names
+### Result
+    |       Departament Name |   Employee Name |
+    |------------------------|-----------------|
+    |        Human Resources | Leila Rodrigues |
+    | Information technology | Artur Rodrigues |
+    | Information technology |     Jose Santos |
+    |              Marketing |      Bob Marley |
+    |              Marketing |   Frank Sinatra |
+    |              Marketing |       Lady Gaga |
+    |              Marketing | Mickael Jackson |
+    |                  Sales |       Elon Musk |
+    |                  Sales |      Steve Jobs |
+
+## LEFT or RIGHT JOIN
+The default behaviour of a join command (INNER JOIN) is to return only rows with data from both tables.
+If it is necessary to return data from one of the tables even if there is no foreign key mapping, it is necessary to use LEFT or RIGHT join. The table in the ```FROM``` clause is the LEFT one and the table in the ```JOIN``` clause is the RIGHT one.
+```sql
+SELECT e.Name as 'Employee Name', d.Name as 'Departament Name'
+FROM Employee e
+RIGHT JOIN Departament d on d.ID = e.DepartamentID
+```
+### Result
+    |   Employee Name |       Departament Name |
+    |-----------------|------------------------|
+    | Leila Rodrigues |        Human Resources |
+    |     Jose Santos | Information technology |
+    | Artur Rodrigues | Information technology |
+    |       Elon Musk |                  Sales |
+    |      Steve Jobs |                  Sales |
+    |          (null) |               Finances |
+    |      Bob Marley |              Marketing |
+    | Mickael Jackson |              Marketing |
+    |   Frank Sinatra |              Marketing |
+    |       Lady Gaga |              Marketing |
+    |          (null) |       Public Relations |
+* ```Employee``` is LEFT and ```Departament``` is RIGHT
+* Compare this result to the one from the previous example and observe that this one has two extras rows with no Employee Name for Finance Departament and Public Relations.
+* As there is no Employee with an Departament ID equals to 4 or 5 so it is necessary a RIGHT JOIN to retrieve a row for each one of those departaments.
+   
+## GROUP BY and COUNT
+* It is possible to group the information based on a field and use a COUNT command
+* The command below return a list with Departament name and the number of Employee associated to the Departament
+```sql
+SELECT d.Name, COUNT(e.ID)
+FROM Departament d
+JOIN Employee e on e.DepartamentID = d.ID
+GROUP BY d.Name
+ORDER BY d.Name
+```
+### Result
+    |                   Name |   |
+    |------------------------|---|
+    |        Human Resources | 1 |
+    | Information technology | 2 |
+    |              Marketing | 4 |
+    |                  Sales | 2 |
 
