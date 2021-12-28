@@ -1,9 +1,9 @@
 # Introduction to SQL
 SQL stands for Structured Query Language. Put differently, it is a language to interact with a Database Server.
-A database server is software to store and manage data.
+A database server is a software to store and manage data.
 
 Usually, a System/Application is devided in 3 tiers: 
-* Front-end (User Interface): The tier that interacts directly with the user
+* Front-end (User Interface): The tier that interacts with the user
 * Back-End (Middleware): The tier that executes the main logic of the System
 * Database (Persistence): The tier that manages the data
   - Store
@@ -15,11 +15,10 @@ Usually, a System/Application is devided in 3 tiers:
   - etc
 
 # Some Context
-SQL is usually related to Relational Databases. There are many different types of databases and in general, all database types that are not relational are called NO-SQL DATABASE. A quick search and you will find a long list of them and each one specialized in something. So there is no such thing as the best database technology as each one is best for different needs.
-It is a disaster to try to use database technology to do something that is not best designed for.
+SQL is usually related to Relational Databases. There are many different types of databases and in general, all database types that are not relational are called NoSQL DATABASE. A quick search and you will find a long list of SQL and NoSQL databases servers. Each database technology is specialized in something. So there is no such thing as the best database technology for all situations.
 
 # Practices
-There are several free SQL Server and IDEs that you can use to practice
+There are several free SQL Server and IDEs that you can use to practice:
 * SQL Lite
   - https://www.sqlite.org
 * MYSQL
@@ -40,13 +39,22 @@ There are several free SQL Server and IDEs that you can use to practice
 # Database Organization
 * A relational database organizes the information in tables and fields.
 * A table is an entity to store data.
-  - Table Examples: Customer, Product, Employee, Project, etc
+  * Examples: 
+     * Customer
+     * Product
+     * Employee
+     * Project
 
 * A field is a unit of data that compose a Table.
-  - Fields Example: ID, first_name, last_name, email, salary, etc.
+  * Examples:
+    * ID
+    * first_name
+    * last_name
+    * email
+    * salary
 
 * A record is a row (instance) of data in a table:
-  - Example of a Row:
+  * Example of a Row:
 
 | ID | first_name | last_name | email | salary |
 | --- | --- | --- | --- | --- |
@@ -74,25 +82,25 @@ A table is defined by a list of fields and before we create a table it is import
 > **ATTENTION**: This is not a full list of data types but the most common ones |
 
 * INT: 
-  - Integer number
-  - 4 bytes
-  - Range: -2^31 (-2,147,483,648) to 2^31-1 (2,147,483,647)
+  * Integer number
+  * 4 bytes
+  * Range: -2^31 (-2,147,483,648) to 2^31-1 (2,147,483,647)
 * NUMERIC
-  - Decimal number
-  - Numeric is define by two part: precision and scale
-    -- Precision: The max number of digits
-    -- Scale: The max number of decimal digits
+  * Decimal number
+  * Numeric is define by two part: precision and scale
+    * Precision: The max number of digits
+    * Scale: The max number of decimal digits
 * MONEY
-  - Money
-  - 8 bytes
-  - Range: -922,337,203,685,477.5808 to 922,337,203,685,477.5807
+  * Money
+  * 8 bytes
+  * Range: -922,337,203,685,477.5808 to 922,337,203,685,477.5807
 * DATETIME2
-  - Date and Time
-  - Range: January 1,1 CE through December 31, 9999 CE
+  * Date and Time
+  * Range: January 1,1 CE through December 31, 9999 CE
 * VARCHAR
-  - Strings as ASCII
+  * Strings as ASCII
 * NVARCHAR
-  - Strings as UNICODE
+  * Strings as UNICODE
 
 ## Primary Key
 A primary key is a field that uniquely identifies each record in a table.
@@ -100,11 +108,11 @@ Primary keys must contain UNIQUE values, and cannot contain NULL values.
 A table can have only ONE primary key; and in the table, this primary key can consist of single or multiple columns (fields).
 
 * Example of Primary Keys:
-  - Email
-  - SSN
-  - EmployId
-  - StudentId
-  - DepartmentId
+  * Email
+  * SSN
+  * EmployId
+  * StudentId
+  * DepartmentId
 
 ## Foreign Key
 A foreign key is a field designated to store values from a field (usually a Primary Key) from another table.
@@ -191,7 +199,7 @@ INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (11, 'Oprah Winfrey'
 # UPDATE command
 The UPDATE command is used to modify existing record(s) in a table.
 
-** Sintaxe
+## Sintaxe
 ```sql
 UPDATE table_name
 SET column1 = value1, column2 = value2, ...
@@ -224,7 +232,7 @@ DELETE FROM Department WHERE ID = 4
 ```
 * The row with ID equals 4 will be deleted from the Department table
 
-## Preparation for the SELECT command examples
+# Preparation for the SELECT command examples
 * These are the SQL commands to prepare the database for the select examples
 * Execute the commands below into your sandbox database to create the tables and insert records necessary for the following examples
 * If you are using SQL Fiddler, execute these commands on the left side (Build Schema Section) and execute the examples on the right side.
@@ -276,12 +284,12 @@ WHERE condition
 
 > **TIP**: Using ```SELECT *``` is not recommended as we rarely need all fields. It is better to use a list with only the necessary fields.
 
-## Select all columns and all rows from an Employee table
+## Select all columns and all rows from Employee table
 ```sql
 SELECT * FROM Employee
 ```
 ### Result
-    | ID |            Name |                       Email | DepartmentID |
+    | ID |            Name |                       Email | DepartmentID  |
     |----|-----------------|-----------------------------|---------------|
     |  1 |     Jose Santos |     jose.santos@noemail.com |             2 |
     |  2 | Leila Rodrigues | leila.rodrigues@noemail.com |             1 |
@@ -320,7 +328,7 @@ SELECT * FROM Employee
 WHERE DepartmentID = 5
 ```
 ### Result
-    | ID |           Name  |                Email | DepartmentID |
+    | ID |           Name  |                Email |  DepartmentID |
     |----|-----------------|----------------------|---------------|
     |  4 |     Bob Marley  |      bob@noemail.com |             5 |
     |  5 | Mickael Jackson |  theking@noemail.com |             5 |
@@ -390,7 +398,7 @@ FROM Employee e
 JOIN Department d on d.ID = e.DepartmentID
 ```
 ### Result
-    |   Employee Name |       Department Name |
+    |   Employee Name |        Department Name |
     |-----------------|------------------------|
     |     Jose Santos | Information Technology |
     | Leila Rodrigues |        Human Resources |
@@ -412,7 +420,7 @@ ORDER BY d.Name, e.Name
 ```
 * Sorting by Department and Employee Names
 ### Result
-    |       Department Name |   Employee Name |
+    |        Department Name |   Employee Name |
     |------------------------|-----------------|
     |        Human Resources | Leila Rodrigues |
     | Information technology | Artur Rodrigues |
@@ -434,7 +442,7 @@ FROM Employee e
 RIGHT JOIN Department d on d.ID = e.DepartmentID
 ```
 ### Result
-    |   Employee Name |       Department Name |
+    |   Employee Name |        Department Name |
     |-----------------|------------------------|
     | Leila Rodrigues |        Human Resources |
     |     Jose Santos | Information technology |
