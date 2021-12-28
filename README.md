@@ -226,6 +226,7 @@ DELETE FROM Departament WHERE ID = 4
 ## Preparation for the SELECT command examples
 * These are the SQL commands to prepare the database for the select examples
 * Execute the commands below into your sandbox database to create the tables and insert records necessary for the following examples
+* If you are using SQL Fiddler, execute these commands on the left side (Build Schema Section) and execute the examples on the right side.
 
 ```sql
 CREATE TABLE Departament (
