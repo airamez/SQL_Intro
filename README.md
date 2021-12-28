@@ -274,7 +274,7 @@ FROM table_name;
 WHERE condition
 ```
 
-* 'SELECT *' returns all field from the table (It is not recommended)
+> **TIP**: Using ```SELECT *``` is not recommend as we rarely need all fields. It is better to use a list with only the necessary fields.
 
 ## Select all columns and all rows from an Employee table
 ```sql
