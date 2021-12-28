@@ -330,7 +330,7 @@ WHERE DepartamentID = 5
 ## Select the Email field of all Employees of IT and RH departments
 ```sql
 SELECT Email FROM Employee
-WHERE DepartamentID = 1 OR DepartamentID = 2
+WHERE DepartmentID = 1 OR DepartmentID = 2
 ```
 ### Result
     |                       Email |
@@ -348,7 +348,7 @@ WHERE DepartamentID = 1 OR DepartamentID = 2
 ```sql
 SELECT * 
 FROM Employee e
-JOIN Departament d on d.ID = e.DepartamentID
+JOIN Department d on d.ID = e.DepartmentID
 ```
 ### Result
     | ID |            Name |                       Email | DepartamentID | ID |                   Name | Abbreviation |
