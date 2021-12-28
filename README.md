@@ -1,7 +1,7 @@
 # Introduction to SQL
-SQL stands for Structed Query Language. Putting a other way, it is a language to interact with a Database Server.
+SQL stands for Structed Query Language. Putting in a different way, it is a language to interact with a Database Server.
 A database server is a software to store and manage data.
-Usually a software is defined in 3 tiers: 
+Usually a System/Application is defined in 3 tiers: 
 * Front-end (User Interface): The tier that interacts directly with the user
 * Back-End (Middleware): The tier that execue the main logic of the sofware
 * Database (Persitence): The tier that manager the data
