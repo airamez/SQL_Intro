@@ -240,14 +240,14 @@ CREATE TABLE Employee (
     ID INT PRIMARY KEY,
     Name nvarchar(200),
     Email nvarchar(200),
-    DepartamentID INT REFERENCES Departament(ID)
+    DepartmentID INT REFERENCES Department(ID)
 )
 INSERT INTO Department (ID, Name, Abbreviation) VALUES (1, 'Human Resources', 'RH')
-INSERT INTO Department (ID, Name, Abbreviation) VALUES (2, 'Information Technology, 'IT')
+INSERT INTO Department (ID, Name, Abbreviation) VALUES (2, 'Information Technology', 'IT')
 INSERT INTO Department (ID, Name, Abbreviation) VALUES (3, 'Sales', 'SAL')
 INSERT INTO Department (ID, Name, Abbreviation) VALUES (4, 'Finances', 'FIN')
 INSERT INTO Department (ID, Name, Abbreviation) VALUES (5, 'Marketing', 'MARK')
-INSERT INTO Departament (ID, Name, Abbreviation) VALUES (6, 'Public Relations', 'PR')
+INSERT INTO Department (ID, Name, Abbreviation) VALUES (6, 'Public Relations', 'PR')
 
 INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (1, 'Jose Santos', 'jose.santos@noemail.com', 2)
 INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (2, 'Leila Rodrigues', 'leila.rodrigues@noemail.com', 1)
