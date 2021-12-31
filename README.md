@@ -438,7 +438,57 @@ JOIN Department d on d.ID = e.DepartmentID
     |  Britney Spears |              Marketing |
     |   Oprah Winfrey |              Marketing |
 
-## Sorting Data, Select 'Employee Name' and 'Department Name' fields from Employee and Department tables
+## Sorting
+* The ```order by``` clause sort the result set.
+* The default order is ascendent, use ```DESC``` for descending order
+
+## Sorting Employee by Salary
+```sql
+SELECT FORMAT(Salary,2) as 'Salary', Name
+FROM Employee e
+ORDER BY e.Salary
+```
+
+> **TIP**: Use the ```FORMAT``` function to formats a decimal value. Every SQL Server offers a lot functions: https://dev.mysql.com/doc/refman/8.0/en/functions.html
+
+## Result
+|       Salary |            Name |
+|--------------|-----------------|
+|    15,000.15 |     Jose Santos |
+|    75,000.56 |  Britney Spears |
+|   100,000.45 | Artur Rodrigues |
+|   200,000.20 | Leila Rodrigues |
+|   450,000.15 |       Elon Musk |
+|   650,000.90 |       Lady Gaga |
+|   700,000.67 |   Frank Sinatra |
+|   900,000.37 |      Bob Marley |
+| 1,000,000.67 |      Steve Jobs |
+| 2,000,000.00 | Mickael Jackson |
+| 5,000,000.01 |   Oprah Winfrey |
+
+## Sorting Employee by Salary in descending order
+```sql
+SELECT FORMAT(Salary,2) as 'Salary', Name
+FROM Employee e
+ORDER BY e.Salary DESC
+```
+
+## Result
+|       Salary |            Name |
+|--------------|-----------------|
+| 5,000,000.01 |   Oprah Winfrey |
+| 2,000,000.00 | Mickael Jackson |
+| 1,000,000.67 |      Steve Jobs |
+|   900,000.37 |      Bob Marley |
+|   700,000.67 |   Frank Sinatra |
+|   650,000.90 |       Lady Gaga |
+|   450,000.15 |       Elon Musk |
+|   200,000.20 | Leila Rodrigues |
+|   100,000.45 | Artur Rodrigues |
+|    75,000.56 |  Britney Spears |
+|    15,000.15 |     Jose Santos |
+
+## Sorting 'Employee Name' and 'Department Name' fields from Employee and Department tables
 ```sql
 SELECT d.Name as 'Department Name',
        e.Name as 'Employee Name'
