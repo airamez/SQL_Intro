@@ -79,7 +79,7 @@ The first step to build the Data Layer is the Data Model.
 A table is defined by a list of fields and before we create a table it is important to understand the field types (DataType).
 
 ## Fields Data Types
-> **ATTENTION**: This is not a full list of data types but the most common ones |
+> **ATTENTION**: This is not a full list of data types but the most common ones
 
 Full list: https://dev.mysql.com/doc/refman/8.0/en/data-types.html
 
@@ -109,12 +109,13 @@ Full list: https://dev.mysql.com/doc/refman/8.0/en/data-types.html
 A primary key is a field that uniquely identifies each record in a table.
 Primary keys must contain UNIQUE values, and cannot contain NULL values.
 A table can have only ONE primary key; and in the table, this primary key can consist of single or multiple columns (fields).
-> **ATTENTION**: Most of the time the Primary Key is auto generated value |
+> **ATTENTION**: Most of the time the Primary Key field is called ID and its value is auto generated
 
 * Example of Primary Keys:
+  * ID
   * Email
   * SSN
-  * EmployId
+  * EmployeeId
   * StudentId
   * DepartmentId
 
@@ -140,8 +141,7 @@ Employee Table
 | ... |
 
 > **ATTENTION**: Department ID is a primary key on the Department table and a foreign key on the Employee table.
-The department of an Employee is defined by the value stored at his "Department ID" field.
-
+* The department of an Employee is defined by the value stored at his "Department ID" field.
 * Jose Santos and Artur Rodrigues are assigned to the Information Technology Department (Department ID = 2)
 * Leila Rodrigues is assigned to the Human Resource Department (Department ID = 1)
 
