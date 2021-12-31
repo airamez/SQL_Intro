@@ -30,7 +30,7 @@ There are several free SQL Server and IDEs that you can use to practice:
 
 > **ATTENTION**: 
   * Each SQL Server has some variation of the SQL syntax. 
-  * This material will use SQL Syntax for Microsoft SQL Server. 
+  * This material will use SQL Syntax for MySQL. 
   * This material focuses only on the basic concepts and tries to give a quick intro to SQL.
 
 > **RECOMMENDATION**: I recommend an online SQL IDE called SQL Fiddler. You just need a browser and don't need to install anything. It supports the SQL Syntax for each one of the listed SQL Servers
@@ -81,31 +81,35 @@ A table is defined by a list of fields and before we create a table it is import
 ## Fields Data Types
 > **ATTENTION**: This is not a full list of data types but the most common ones |
 
-* INT: 
-  * Integer number
-  * 4 bytes
-  * Range: -2^31 (-2,147,483,648) to 2^31-1 (2,147,483,647)
-* NUMERIC
-  * Decimal number
-  * Numeric is define by two part: precision and scale
-    * Precision: The max number of digits
-    * Scale: The max number of decimal digits
-* MONEY
-  * Money
-  * 8 bytes
-  * Range: -922,337,203,685,477.5808 to 922,337,203,685,477.5807
-* DATETIME2
-  * Date and Time
-  * Range: January 1,1 CE through December 31, 9999 CE
-* VARCHAR
-  * Strings as ASCII
-* NVARCHAR
-  * Strings as UNICODE
+Full list: https://dev.mysql.com/doc/refman/8.0/en/data-types.html
+
+* Numerics (https://dev.mysql.com/doc/refman/8.0/en/numeric-types.html): 
+  * INTEGER
+  * SMALLINT
+  * DECIMAL
+  * NUMERIC
+* Date and Time (https://dev.mysql.com/doc/refman/8.0/en/date-and-time-types.html)
+  * DATE
+  * TIME
+  * DATETIME
+  * TIMESTAMP
+  * YEAR
+* String (https://dev.mysql.com/doc/refman/8.0/en/string-types.html)
+  * CHAR
+  * VARCHAR
+  * BINARY
+  * VARBINARY
+  * BLOB
+  * TEXT
+  * ENUM
+  * SET
+* JSON (https://dev.mysql.com/doc/refman/8.0/en/json.html)
 
 ## Primary Key
 A primary key is a field that uniquely identifies each record in a table.
 Primary keys must contain UNIQUE values, and cannot contain NULL values.
 A table can have only ONE primary key; and in the table, this primary key can consist of single or multiple columns (fields).
+> **ATTENTION**: Most of the time the Primary Key is auto generated value |
 
 * Example of Primary Keys:
   * Email
@@ -153,18 +157,23 @@ CREATE TABLE table_name (
 ## CREATE TABLE example
 ```sql
 CREATE TABLE Department (
-    ID INT PRIMARY KEY,
-    Name nvarchar(100),
-    Abbreviation nvarchar(5)
-)
+    ID INT NOT NULL AUTO_INCREMENT,
+    Name varchar(100),
+    Abbreviation varchar(5),
+    PRIMARY KEY (ID)
+);
 
 CREATE TABLE Employee (
-    ID INT PRIMARY KEY,
-    Name nvarchar(200),
-    Email nvarchar(200),
-    DepartmentID INT REFERENCES Department(ID)
+    ID INT NOT NULL AUTO_INCREMENT,
+    Name varchar(200),
+    Email varchar(200),
+    Salary DECIMAL(13,2),
+    DepartmentID INT,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (DepartmentID) REFERENCES Department(ID)
 )
 ```
+> **WARNING**: When executing multiple SQL statements, it is necessary to finish each one ';'.
 
 # INSERT command
 The insert command is used to add records to a table
@@ -177,24 +186,29 @@ VALUES (value1, value2, value3, ...);
 
 ## Example
 ```sql
-INSERT INTO Department (ID, Name, Abbreviation) VALUES (1, 'Human Resources', 'RH')
-INSERT INTO Department (ID, Name, Abbreviation) VALUES (2, 'Information Technology', 'IT')
-INSERT INTO Department (ID, Name, Abbreviation) VALUES (3, 'Sales', 'SAL')
-INSERT INTO Department (ID, Name, Abbreviation) VALUES (4, 'Finances', 'FIN')
-INSERT INTO Department (ID, Name, Abbreviation) VALUES (5, 'Marketing', 'MARK')
+INSERT INTO Department (Name, Abbreviation) VALUES ('Human Resources', 'HR');
+INSERT INTO Department (Name, Abbreviation) VALUES ('Information Technology', 'IT');
+INSERT INTO Department (Name, Abbreviation) VALUES ('Sales', 'SAL');
+INSERT INTO Department (Name, Abbreviation) VALUES ('Finances', 'FIN');
+INSERT INTO Department (Name, Abbreviation) VALUES ('Marketing', 'MARK');
+INSERT INTO Department (Name, Abbreviation) VALUES ('Public Relations', 'PL');
 
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (1, 'Jose Santos', 'jose.santos@noemail.com', 2)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (2, 'Leila Rodrigues', 'leila.rodrigues@noemail.com', 1)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (3, 'Artur Rodrigues', 'artur.rodrigues@noemail.com', 2)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (4, 'Bob Marley', 'bob@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (5, 'Mickael Jackson', 'theking@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (6, 'Frank Sinatra', 'sinatra@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (7, 'Elon Musk', 'musk@noemail.com', 3)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (8, 'Steve Jobs', 'jobs@noemail.com', 3)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (9, 'Lady Gaga', 'ladygaga@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (10, 'Britney Spears', 'bspears@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (11, 'Oprah Winfrey', 'oprah@noemail.com', 5)
+INSERT INTO Employee (Name, Email, Salary, DepartmentID) VALUES
+('Jose Santos', 'jose.santos@noemail.com', 15000.15, 2),
+('Leila Rodrigues', 'leila.rodrigues@noemail.com', 200000.20, 1),
+('Artur Rodrigues', 'artur.rodrigues@noemail.com', 100000.45, 2),
+('Bob Marley', 'bob@noemail.com', 900000.37, 5),
+('Mickael Jackson', 'theking@noemail.com', 2000000.00, 5),
+('Frank Sinatra', 'sinatra@noemail.com', 700000.67, 5),
+('Elon Musk', 'musk@noemail.com', 450000.15, 3),
+('Steve Jobs', 'jobs@noemail.com', 1000000.67, 3),
+('Lady Gaga', 'ladygaga@noemail.com', 650000.90, 5),
+('Britney Spears', 'bspears@noemail.com', 75000.56, 5),
+('Oprah Winfrey', 'oprah@noemail.com', 5000000.01,5);
 ```
+> **ATTENTION**: No need to insert the ID field because it is auto-gerenated (AUTO_INCREMENT)
+
+> **TIP**: It is possible to insert multiple rows with just one INSERT command. Check the INSERT command on Employee table
 
 # UPDATE command
 The UPDATE command is used to modify existing record(s) in a table.
@@ -239,35 +253,40 @@ DELETE FROM Department WHERE ID = 4
 
 ```sql
 CREATE TABLE Department (
-    ID INT PRIMARY KEY,
-    Name nvarchar(100),
-    Abbreviation nvarchar(5)
-)
+    ID INT NOT NULL AUTO_INCREMENT,
+    Name varchar(100),
+    Abbreviation varchar(5),
+    PRIMARY KEY (ID)
+);
 
 CREATE TABLE Employee (
-    ID INT PRIMARY KEY,
-    Name nvarchar(200),
-    Email nvarchar(200),
-    DepartmentID INT REFERENCES Department(ID)
-)
-INSERT INTO Department (ID, Name, Abbreviation) VALUES (1, 'Human Resources', 'RH')
-INSERT INTO Department (ID, Name, Abbreviation) VALUES (2, 'Information Technology', 'IT')
-INSERT INTO Department (ID, Name, Abbreviation) VALUES (3, 'Sales', 'SAL')
-INSERT INTO Department (ID, Name, Abbreviation) VALUES (4, 'Finances', 'FIN')
-INSERT INTO Department (ID, Name, Abbreviation) VALUES (5, 'Marketing', 'MARK')
-INSERT INTO Department (ID, Name, Abbreviation) VALUES (6, 'Public Relations', 'PR')
+    ID INT NOT NULL AUTO_INCREMENT,
+    Name varchar(200),
+    Email varchar(200),
+    DepartmentID INT,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (DepartmentID) REFERENCES Department(ID)
+);
 
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (1, 'Jose Santos', 'jose.santos@noemail.com', 2)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (2, 'Leila Rodrigues', 'leila.rodrigues@noemail.com', 1)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (3, 'Artur Rodrigues', 'artur.rodrigues@noemail.com', 2)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (4, 'Bob Marley', 'bob@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (5, 'Mickael Jackson', 'theking@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (6, 'Frank Sinatra', 'sinatra@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (7, 'Elon Musk', 'musk@noemail.com', 3)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (8, 'Steve Jobs', 'jobs@noemail.com', 3)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (9, 'Lady Gaga', 'ladygaga@noemail.com', 5)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (10, 'Britney Spears', 'bspears@noemail.com', NULL)
-INSERT INTO Employee (ID, Name, Email, DepartmentID) VALUES (11, 'Oprah Winfrey', 'oprah@noemail.com', NULL)
+INSERT INTO Department (Name, Abbreviation) VALUES ('Human Resources', 'HR');
+INSERT INTO Department (Name, Abbreviation) VALUES ('Information Technology', 'IT');
+INSERT INTO Department (Name, Abbreviation) VALUES ('Sales', 'SAL');
+INSERT INTO Department (Name, Abbreviation) VALUES ('Finances', 'FIN');
+INSERT INTO Department (Name, Abbreviation) VALUES ('Marketing', 'MARK');
+INSERT INTO Department (Name, Abbreviation) VALUES ('Public Relations', 'PL');
+
+INSERT INTO Employee (Name, Email, Salary, DepartmentID) VALUES
+('Jose Santos', 'jose.santos@noemail.com', 15000.15, 2),
+('Leila Rodrigues', 'leila.rodrigues@noemail.com', 200000.20, 1),
+('Artur Rodrigues', 'artur.rodrigues@noemail.com', 100000.45, 2),
+('Bob Marley', 'bob@noemail.com', 900000.37, 5),
+('Mickael Jackson', 'theking@noemail.com', 2000000.00, 5),
+('Frank Sinatra', 'sinatra@noemail.com', 700000.67, 5),
+('Elon Musk', 'musk@noemail.com', 450000.15, 3),
+('Steve Jobs', 'jobs@noemail.com', 1000000.67, 3),
+('Lady Gaga', 'ladygaga@noemail.com', 650000.90, 5),
+('Britney Spears', 'bspears@noemail.com', 75000.56, 5),
+('Oprah Winfrey', 'oprah@noemail.com', 5000000.01,5);
 ```
 
 # SELECT command
@@ -289,38 +308,38 @@ WHERE condition
 SELECT * FROM Employee
 ```
 ### Result
-    | ID |            Name |                       Email | DepartmentID  |
-    |----|-----------------|-----------------------------|---------------|
-    |  1 |     Jose Santos |     jose.santos@noemail.com |             2 |
-    |  2 | Leila Rodrigues | leila.rodrigues@noemail.com |             1 |
-    |  3 | Artur Rodrigues | artur.rodrigues@noemail.com |             2 |
-    |  4 |      Bob Marley |             bob@noemail.com |             5 |
-    |  5 | Mickael Jackson |         theking@noemail.com |             5 |
-    |  6 |   Frank Sinatra |         sinatra@noemail.com |             5 |
-    |  7 |       Elon Musk |            musk@noemail.com |             3 |
-    |  8 |      Steve Jobs |            jobs@noemail.com |             3 |
-    |  9 |       Lady Gaga |        ladygaga@noemail.com |             5 |
-    | 10 |  Britney Spears |         bspears@noemail.com |        (null) |
-    | 11 |   Oprah Winfrey |           oprah@noemail.com |        (null) |
+    | ID |            Name |                       Email |     Salary | DepartmentID |
+    |----|-----------------|-----------------------------|------------|--------------|
+    |  1 |     Jose Santos |     jose.santos@noemail.com |   15000.15 |            2 |
+    |  2 | Leila Rodrigues | leila.rodrigues@noemail.com |   200000.2 |            1 |
+    |  3 | Artur Rodrigues | artur.rodrigues@noemail.com |  100000.45 |            2 |
+    |  4 |      Bob Marley |             bob@noemail.com |  900000.37 |            5 |
+    |  5 | Mickael Jackson |         theking@noemail.com |    2000000 |            5 |
+    |  6 |   Frank Sinatra |         sinatra@noemail.com |  700000.67 |            5 |
+    |  7 |       Elon Musk |            musk@noemail.com |  450000.15 |            3 |
+    |  8 |      Steve Jobs |            jobs@noemail.com | 1000000.67 |            3 |
+    |  9 |       Lady Gaga |        ladygaga@noemail.com |   650000.9 |            5 |
+    | 10 |  Britney Spears |         bspears@noemail.com |   75000.56 |            5 |
+    | 11 |   Oprah Winfrey |           oprah@noemail.com | 5000000.01 |            5 |
 
 ## Select only ID and Name fields from the Employee table
 ```sql
-SELECT ID, Name FROM Employee
+SELECT ID, Name, Salary FROM Employee
 ```
 ### Result
-    | ID |            Name |
-    |----|-----------------|
-    |  1 |     Jose Santos |
-    |  2 | Leila Rodrigues |
-    |  3 | Artur Rodrigues |
-    |  4 |      Bob Marley |
-    |  5 | Mickael Jackson |
-    |  6 |   Frank Sinatra |
-    |  7 |       Elon Musk |
-    |  8 |      Steve Jobs |
-    |  9 |       Lady Gaga |
-    | 10 |  Britney Spears |
-    | 11 |   Oprah Winfrey |
+    | ID |            Name |     Salary |
+    |----|-----------------|------------|
+    |  1 |     Jose Santos |   15000.15 |
+    |  2 | Leila Rodrigues |   200000.2 |
+    |  3 | Artur Rodrigues |  100000.45 |
+    |  4 |      Bob Marley |  900000.37 |
+    |  5 | Mickael Jackson |    2000000 |
+    |  6 |   Frank Sinatra |  700000.67 |
+    |  7 |       Elon Musk |  450000.15 |
+    |  8 |      Steve Jobs | 1000000.67 |
+    |  9 |       Lady Gaga |   650000.9 |
+    | 10 |  Britney Spears |   75000.56 |
+    | 11 |   Oprah Winfrey | 5000000.01 |
 
 ## Select all fields from employee where the Department ID equals 5
 ```sql
@@ -328,14 +347,16 @@ SELECT * FROM Employee
 WHERE DepartmentID = 5
 ```
 ### Result
-    | ID |           Name  |                Email |  DepartmentID |
-    |----|-----------------|----------------------|---------------|
-    |  4 |     Bob Marley  |      bob@noemail.com |             5 |
-    |  5 | Mickael Jackson |  theking@noemail.com |             5 |
-    |  6 |  Frank Sinatra  |  sinatra@noemail.com |             5 |
-    |  9 |      Lady Gaga  | ladygaga@noemail.com |             5 |
+    | ID |            Name |                Email |     Salary | DepartmentID |
+    |----|-----------------|----------------------|------------|--------------|
+    |  4 |      Bob Marley |      bob@noemail.com |  900000.37 |            5 |
+    |  5 | Mickael Jackson |  theking@noemail.com |    2000000 |            5 |
+    |  6 |   Frank Sinatra |  sinatra@noemail.com |  700000.67 |            5 |
+    |  9 |       Lady Gaga | ladygaga@noemail.com |   650000.9 |            5 |
+    | 10 |  Britney Spears |  bspears@noemail.com |   75000.56 |            5 |
+    | 11 |   Oprah Winfrey |    oprah@noemail.com | 5000000.01 |            5 |
 
-## Select the Email field of all Employees of the IT and RH departments
+## Select the Email field of all Employees of the IT and HR departments
 ```sql
 SELECT Email FROM Employee
 WHERE DepartmentID = 1 OR DepartmentID = 2
@@ -358,18 +379,21 @@ SELECT *
 FROM Employee e
 JOIN Department d on d.ID = e.DepartmentID
 ```
+
 ### Result
-    | ID |            Name |                       Email | DepartmentID  | ID |                   Name | Abbreviation |
-    |----|-----------------|-----------------------------|---------------|----|------------------------|--------------|
-    |  1 |     Jose Santos |     jose.santos@noemail.com |             2 |  2 | Information technology |           IT |
-    |  2 | Leila Rodrigues | leila.rodrigues@noemail.com |             1 |  1 |        Human Resources |           RH |
-    |  3 | Artur Rodrigues | artur.rodrigues@noemail.com |             2 |  2 | Information technology |           IT |
-    |  4 |      Bob Marley |             bob@noemail.com |             5 |  5 |              Marketing |         MARK |
-    |  5 | Mickael Jackson |         theking@noemail.com |             5 |  5 |              Marketing |         MARK |
-    |  6 |   Frank Sinatra |         sinatra@noemail.com |             5 |  5 |              Marketing |         MARK |
-    |  7 |       Elon Musk |            musk@noemail.com |             3 |  3 |                  Sales |          SAL |
-    |  8 |      Steve Jobs |            jobs@noemail.com |             3 |  3 |                  Sales |          SAL |
-    |  9 |       Lady Gaga |        ladygaga@noemail.com |             5 |  5 |              Marketing |         MARK |
+    | ID |            Name |                       Email |     Salary | DepartmentID | ID |                   Name | Abbreviation |
+    |----|-----------------|-----------------------------|------------|--------------|----|------------------------|--------------|
+    |  2 | Leila Rodrigues | leila.rodrigues@noemail.com |   200000.2 |            1 |  1 |        Human Resources |           HR |
+    |  1 |     Jose Santos |     jose.santos@noemail.com |   15000.15 |            2 |  2 | Information Technology |           IT |
+    |  3 | Artur Rodrigues | artur.rodrigues@noemail.com |  100000.45 |            2 |  2 | Information Technology |           IT |
+    |  7 |       Elon Musk |            musk@noemail.com |  450000.15 |            3 |  3 |                  Sales |          SAL |
+    |  8 |      Steve Jobs |            jobs@noemail.com | 1000000.67 |            3 |  3 |                  Sales |          SAL |
+    |  4 |      Bob Marley |             bob@noemail.com |  900000.37 |            5 |  5 |              Marketing |         MARK |
+    |  5 | Mickael Jackson |         theking@noemail.com |    2000000 |            5 |  5 |              Marketing |         MARK |
+    |  6 |   Frank Sinatra |         sinatra@noemail.com |  700000.67 |            5 |  5 |              Marketing |         MARK |
+    |  9 |       Lady Gaga |        ladygaga@noemail.com |   650000.9 |            5 |  5 |              Marketing |         MARK |
+    | 10 |  Britney Spears |         bspears@noemail.com |   75000.56 |            5 |  5 |              Marketing |         MARK |
+    | 11 |   Oprah Winfrey |           oprah@noemail.com | 5000000.01 |            5 |  5 |              Marketing |         MARK |
 
 ## Select 'Employee Name' and 'Department Name' fields from Employee and Department tables
 ```sql
@@ -380,15 +404,17 @@ JOIN Department d on d.ID = e.DepartmentID
 ### Result
     |            Name |                   Name |
     |-----------------|------------------------|
-    |     Jose Santos | Information technology |
     | Leila Rodrigues |        Human Resources |
-    | Artur Rodrigues | Information technology |
+    |     Jose Santos | Information Technology |
+    | Artur Rodrigues | Information Technology |
+    |       Elon Musk |                  Sales |
+    |      Steve Jobs |                  Sales |
     |      Bob Marley |              Marketing |
     | Mickael Jackson |              Marketing |
     |   Frank Sinatra |              Marketing |
-    |       Elon Musk |                  Sales |
-    |      Steve Jobs |                  Sales |
     |       Lady Gaga |              Marketing |
+    |  Britney Spears |              Marketing |
+    |   Oprah Winfrey |              Marketing |
 
 ## Select 'Employee Name' and 'Department Name' fields but renaming them to 'Employee Name' and 'Department Name' respectively
 ```sql
@@ -400,15 +426,17 @@ JOIN Department d on d.ID = e.DepartmentID
 ### Result
     |   Employee Name |        Department Name |
     |-----------------|------------------------|
-    |     Jose Santos | Information Technology |
     | Leila Rodrigues |        Human Resources |
-    | Artur Rodrigues | Information technology |
+    |     Jose Santos | Information Technology |
+    | Artur Rodrigues | Information Technology |
+    |       Elon Musk |                  Sales |
+    |      Steve Jobs |                  Sales |
     |      Bob Marley |              Marketing |
     | Mickael Jackson |              Marketing |
     |   Frank Sinatra |              Marketing |
-    |       Elon Musk |                  Sales |
-    |      Steve Jobs |                  Sales |
     |       Lady Gaga |              Marketing |
+    |  Britney Spears |              Marketing |
+    |   Oprah Winfrey |              Marketing |
 
 ## Sorting Data, Select 'Employee Name' and 'Department Name' fields from Employee and Department tables
 ```sql
@@ -420,15 +448,17 @@ ORDER BY d.Name, e.Name
 ```
 * Sorting by Department and Employee Names
 ### Result
-    |        Department Name |   Employee Name |
+   |        Department Name |   Employee Name |
     |------------------------|-----------------|
     |        Human Resources | Leila Rodrigues |
-    | Information technology | Artur Rodrigues |
-    | Information technology |     Jose Santos |
+    | Information Technology | Artur Rodrigues |
+    | Information Technology |     Jose Santos |
     |              Marketing |      Bob Marley |
+    |              Marketing |  Britney Spears |
     |              Marketing |   Frank Sinatra |
     |              Marketing |       Lady Gaga |
     |              Marketing | Mickael Jackson |
+    |              Marketing |   Oprah Winfrey |
     |                  Sales |       Elon Musk |
     |                  Sales |      Steve Jobs |
 
@@ -445,8 +475,8 @@ RIGHT JOIN Department d on d.ID = e.DepartmentID
     |   Employee Name |        Department Name |
     |-----------------|------------------------|
     | Leila Rodrigues |        Human Resources |
-    |     Jose Santos | Information technology |
-    | Artur Rodrigues | Information technology |
+    |     Jose Santos | Information Technology |
+    | Artur Rodrigues | Information Technology |
     |       Elon Musk |                  Sales |
     |      Steve Jobs |                  Sales |
     |          (null) |               Finances |
@@ -454,11 +484,45 @@ RIGHT JOIN Department d on d.ID = e.DepartmentID
     | Mickael Jackson |              Marketing |
     |   Frank Sinatra |              Marketing |
     |       Lady Gaga |              Marketing |
+    |  Britney Spears |              Marketing |
+    |   Oprah Winfrey |              Marketing |
     |          (null) |       Public Relations |
+
 * ```Employee``` is LEFT and ```Department`` is RIGHT
 * Compare this result to the one from the previous example and observe that this one has two extra rows with no Employee Name for Finance Department and Public Relations.
 * As there is no Employee with a Department ID equal to 4 or 5, it is necessary a RIGHT JOIN to retrieve a row for each one of those departments.
-   
+
+## MAX, MIN, SUM and AVG
+  * MAX returns the maximum value of a field
+  * MIN returns the minimum value of a field
+  * SUM returns the sum of all values of a field
+  * AVG returns the average value of a field
+```sql
+SELECT MIN(Salary) as 'Minimum',
+       MAX(Salary) as 'Maximum',
+       SUM(Salary) as 'Sum',
+       AVG(Salary) as 'Average'
+FROM Employee
+```
+
+### Result
+    |  Minimum |    Maximum |         Sum |        Average |
+    |----------|------------|-------------|----------------|
+    | 15000.15 | 5000000.01 | 11090004.13 | 1008182.193636 |
+
+## COUNT
+* The COUNT clause returns the number of the records in the dataset (result of the SELECT command)
+
+```
+SELECT COUNT(ID) as 'Employee COUNT'
+FROM Employee
+WHERE DepartmentID = 5
+```
+### Result
+    | Employee COUNT |
+    |----------------|
+    |              6 |
+
 ## GROUP BY and COUNT
 * It is possible to group the information based on a field and use a COUNT command
 * The command below return a list with the Department name and the number of Employees associated with the Department
@@ -470,12 +534,12 @@ GROUP BY d.Name
 ORDER BY d.Name
 ```
 ### Result
-    |                   Name | Employee Count  |
-    |------------------------|-----------------|
-    |        Human Resources |               1 |
-    | Information technology |               2 |
-    |              Marketing |               4 |
-    |                  Sales |               2 |
+    |                   Name | Employee Count |
+    |------------------------|----------------|
+    |        Human Resources |              1 |
+    | Information Technology |              2 |
+    |              Marketing |              6 |
+    |                  Sales |              2 |
 
 ## GROUP BY and COUNT with LEFT JOIN
 * It is possible to group the information based on a field and use a COUNT command
@@ -492,8 +556,9 @@ ORDER BY d.Name
     |------------------------|----------------|
     |               Finances |              0 |
     |        Human Resources |              1 |
-    | Information technology |              2 |
-    |              Marketing |              4 |
+    | Information Technology |              2 |
+    |              Marketing |              6 |
     |       Public Relations |              0 |
     |                  Sales |              2 |
+
 > **ATTENTION**: Using the left join makes sure the departments without Employees are returned.
