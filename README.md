@@ -448,7 +448,7 @@ ORDER BY d.Name, e.Name
 ```
 * Sorting by Department and Employee Names
 ### Result
-   |        Department Name |   Employee Name |
+    |        Department Name |   Employee Name |
     |------------------------|-----------------|
     |        Human Resources | Leila Rodrigues |
     | Information Technology | Artur Rodrigues |
